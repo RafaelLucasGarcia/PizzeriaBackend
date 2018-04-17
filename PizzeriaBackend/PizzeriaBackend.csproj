@@ -266,6 +266,10 @@
     <Content Include="App_Data\aspnet-PizzeriaBackend-20180416055333_log.ldf">
       <DependentUpon>aspnet-PizzeriaBackend-20180416055333.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\PizzasEntities.mdf" />
+    <Content Include="App_Data\PizzasEntities_log.ldf">
+      <DependentUpon>PizzasEntities.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\PizzeriaBackend.Video.PizzaShowContext.mdf" />
     <Content Include="App_Data\PizzeriaBackend.Video.PizzaShowContext_log.ldf">
       <DependentUpon>PizzeriaBackend.Video.PizzaShowContext.mdf</DependentUpon>

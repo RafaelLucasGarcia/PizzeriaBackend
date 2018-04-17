@@ -8,7 +8,8 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
-using PizzeriaBackend.Video;
+using PizzeriaBackend.Infrestructura;
+using PizzeriaBackend.Dominio;
 
 namespace PizzeriaBackend
 {
@@ -31,12 +32,13 @@ namespace PizzeriaBackend
             );
 
             var builder = new ContainerBuilder();
+            config = GlobalConfiguration.Configuration;
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterType<Logger>().As<ILogger>().InstancePerRequest();
             builder.RegisterType<Repository>().As<IRepository>().InstancePerRequest();
-            builder.RegisterType<PizzaShowContext>().As<IUnitOfWork>().As<IRepositoryPizza>().InstancePerRequest();
+            builder.RegisterType<PizzaContext>().As<IUnitOfWork>().As<IRepositoryPizza>().InstancePerRequest();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

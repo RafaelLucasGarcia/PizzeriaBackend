@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using PizzeriaBackend.Video;
+using PizzeriaBackend.Dominio;
+using PizzeriaBackend.Infrestructura;
 
 namespace PizzeriaBackend.Controllers
 {
@@ -27,8 +28,10 @@ namespace PizzeriaBackend.Controllers
         // GET api/values/5
         public Pizza Get(int id)
         {
-            var pizza = new Pizza { Id = Guid.NewGuid(), Name = "Carbonara" };
-            _logger.write(pizza);
+            var pizza = new Pizza() { Id = Guid.NewGuid(), Name = "Margarita" };
+            pizza.Comments.Add(new Comments() { Id = Guid.NewGuid(), Name = "De puta madre.", UserName = "Pedro" });
+            _logger.Write(pizza);
+
             return pizza;
         }
 
