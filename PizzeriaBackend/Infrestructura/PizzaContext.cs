@@ -21,5 +21,7 @@ namespace PizzeriaBackend.Infrestructura
         {
             return this.Set(type);
         }
+
+        //public System.Data.Entity.DbSet<PizzeriaBackend.Dominio.Pizza> Pizzas { get; set; }
     }
 }
