@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
-using PizzeriaBackend.Dominio;
-using PizzeriaBackend.Infraestructura;
+using Dominio;
+using Infraestructura;
 
 namespace PizzeriaBackend.Controllers
 {
@@ -23,14 +20,14 @@ namespace PizzeriaBackend.Controllers
         // GET: api/Pizzas
         public IQueryable<Pizza> GetPizzas()
         {
-            return db.Pizza;
+            return db.Pizzas;
         }
 
         // GET: api/Pizzas/5
         [ResponseType(typeof(Pizza))]
         public IHttpActionResult GetPizza(Guid id)
         {
-            Pizza pizza = db.Pizza.Find(id);
+            Pizza pizza = db.Pizzas.Find(id);
             if (pizza == null)
             {
                 return NotFound();
@@ -83,7 +80,7 @@ namespace PizzeriaBackend.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Pizza.Add(pizza);
+            db.Pizzas.Add(pizza);
 
             try
             {
@@ -108,49 +105,17 @@ namespace PizzeriaBackend.Controllers
         [ResponseType(typeof(Pizza))]
         public IHttpActionResult DeletePizza(Guid id)
         {
-            Pizza pizza = db.Pizza.Find(id);
+            Pizza pizza = db.Pizzas.Find(id);
             if (pizza == null)
             {
                 return NotFound();
             }
 
-            db.Pizza.Remove(pizza);
+            db.Pizzas.Remove(pizza);
             db.SaveChanges();
 
             return Ok(pizza);
         }
-
-        public async Task<HttpResponseMessage> PostFormData()
-        {
-            if (!Request.Content.IsMimeMultipartContent())
-            {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
-
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
-
-            try
-            {
-                await Request.Content.ReadAsMultipartAsync(provider);
-
-                // Show all the key-value pairs.
-                foreach (var key in provider.FormData.AllKeys)
-                {
-                    foreach (var val in provider.FormData.GetValues(key))
-                    {
-                        Trace.WriteLine(string.Format("{0}: {1}", key, val));
-                    }
-                }
-
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (System.Exception e)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-            }
-        }
-
 
         protected override void Dispose(bool disposing)
         {
@@ -163,7 +128,7 @@ namespace PizzeriaBackend.Controllers
 
         private bool PizzaExists(Guid id)
         {
-            return db.Pizza.Count(e => e.Id == id) > 0;
+            return db.Pizzas.Count(e => e.Id == id) > 0;
         }
     }
 }

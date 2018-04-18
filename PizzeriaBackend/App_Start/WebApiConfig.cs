@@ -8,8 +8,8 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
-using PizzeriaBackend.Infraestructura;
-using PizzeriaBackend.Dominio;
+using Infraestructura;
+using Dominio;
 
 namespace PizzeriaBackend
 {
