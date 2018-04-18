@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PizzeriaBackend.Infrestructura
+namespace PizzeriaBackend.Infraestructura
 {
     public interface IUnitOfWork : IDisposable
     {

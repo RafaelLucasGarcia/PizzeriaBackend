@@ -12,7 +12,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PizzeriaBackend.Dominio;
-using PizzeriaBackend.Infrestructura;
+using PizzeriaBackend.Infraestructura;
 
 namespace PizzeriaBackend.Controllers
 {

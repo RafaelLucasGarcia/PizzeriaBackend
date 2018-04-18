@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace PizzeriaBackend.Infrestructura
+namespace PizzeriaBackend.Infraestructura
 {
     public class PizzaContext : DbContext, IUnitOfWork, IRepositoryPizza
     {
