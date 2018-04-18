@@ -22,7 +22,7 @@ namespace Infraestructura
             return this.Set(type);
         }
 
-        public System.Data.Entity.DbSet<Dominio.Pizza> Pizzas { get; set; }
+        //public System.Data.Entity.DbSet<Dominio.Pizza> Pizzas { get; set; }
 
         //public System.Data.Entity.DbSet<PizzeriaBackend.Dominio.Pizza> Pizzas { get; set; }
     }

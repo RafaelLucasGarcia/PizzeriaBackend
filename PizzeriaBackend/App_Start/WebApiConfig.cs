@@ -31,6 +31,8 @@ namespace PizzeriaBackend
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling= Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
             var builder = new ContainerBuilder();
             config = GlobalConfiguration.Configuration;
 

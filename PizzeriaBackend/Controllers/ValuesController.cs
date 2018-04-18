@@ -29,7 +29,9 @@ namespace PizzeriaBackend.Controllers
         public Pizza Get(int id)
         {
             var pizza = new Pizza() { Id = Guid.NewGuid(), Name = "Margarita" };
-            pizza.Comments.Add(new Comments() { Id = Guid.NewGuid(), Name = "De puta madre.", UserName = "Pedro" });
+            pizza.Comments.Add(new Comments() { Id = Guid.NewGuid(), Name = "Otro.", UserName = "Pedro" });
+            pizza.Ingredients.Add(new Ingredient() { Id = Guid.NewGuid(), Name = "Queso", Cost = 2.5m });
+            pizza.Ingredients.Add(new Ingredient() { Id = Guid.NewGuid(), Name = "Tomate", Cost = 1.5m });
             _logger.Write(pizza);
 
             return pizza;
