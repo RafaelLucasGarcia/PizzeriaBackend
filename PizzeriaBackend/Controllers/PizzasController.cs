@@ -13,9 +13,12 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Dominio;
 using Infraestructura;
+using System.Web.Http.Cors;
+
 
 namespace PizzeriaBackend.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Custom-Header")]
     public class PizzasController : ApiController
     {
         private PizzaContext db = new PizzaContext();
