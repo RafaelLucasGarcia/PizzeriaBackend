@@ -10,9 +10,11 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using PizzeriaBackend.Providers;
 using PizzeriaBackend.Models;
+using System.Web.Http.Cors;
 
 namespace PizzeriaBackend
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Custom-Header")]
     public partial class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
