@@ -14,7 +14,8 @@ using System.Web.Http.Description;
 using Dominio;
 using Infraestructura;
 using System.Web.Http.Cors;
-
+using PizzeriaBackend.Models;
+using System.IO;
 
 namespace PizzeriaBackend.Controllers
 {
@@ -22,108 +23,60 @@ namespace PizzeriaBackend.Controllers
     public class PizzasController : ApiController
     {
         private PizzaContext db = new PizzaContext();
+        readonly ILogger _logger;
+        public PizzasController(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         // GET: api/Pizzas
-        public IQueryable<Pizza> GetPizzas()
+        public IEnumerable<Ingredient> Get()
         {
-            return db.Pizza;
+            return _logger.Ingredients();
         }
 
         // GET: api/Pizzas/5
         [ResponseType(typeof(Pizza))]
-        public IHttpActionResult GetPizza(Guid id)
+        [Route("pizzas")]
+        public IEnumerable<Pizza> Get(int id)
         {
-            Pizza pizza = db.Pizza.Find(id);
-            if (pizza == null)
+            List<UploadRequestViewModel> models = new List<UploadRequestViewModel>();
+            List<Guid> IdIngredients = new List<Guid>();
+            Decimal TotalCost;
+            var pizzas = _logger.Pizzas();
+            foreach (var pizza in pizzas)
             {
-                return NotFound();
+                TotalCost = 0m;
+                foreach (var ingredient in pizza.Ingredients)
+                {
+                    IdIngredients.Add(ingredient.Id);
+                    TotalCost += ingredient.Cost;
+                }
+                //models.Add(new UploadRequestViewModel() { Name = pizza.Name, Ingredients = IdIngredients, File = new MemoryStream(pizza.File) });
             }
-
-            return Ok(pizza);
+            return _logger.Pizzas();
         }
 
         // PUT: api/Pizzas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPizza(Guid id, Pizza pizza)
+        public void Put([FromBody]CreatePizza createPizza)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (id != pizza.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(pizza).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PizzaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Pizzas
-        [ResponseType(typeof(Pizza))]
-        public IHttpActionResult PostPizza(Pizza pizza)
+        public void Post([FromBody]UploadRequestViewModel model)
         {
-            Guid id = Guid.NewGuid();
-            pizza.Id = id;
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Pizza.Add(pizza);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (PizzaExists(pizza.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = pizza.Id }, pizza);
+            MemoryStream file = new MemoryStream();
+            CopyStream(model.File.InputStream, file);
+            var createPizza = new CreatePizza() { Name = model.Name, Ingredients = model.Ingredients, Image = file.ToArray() };
+            _logger.Write(createPizza);
         }
 
         // DELETE: api/Pizzas/5
-        [ResponseType(typeof(Pizza))]
-        public IHttpActionResult DeletePizza(Guid id)
+        public void Delete(int id)
         {
-            Pizza pizza = db.Pizza.Find(id);
-            if (pizza == null)
-            {
-                return NotFound();
-            }
-
-            db.Pizza.Remove(pizza);
-            db.SaveChanges();
-
-            return Ok(pizza);
-        }       
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -132,6 +85,15 @@ namespace PizzeriaBackend.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public static void CopyStream(Stream input, Stream output)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            int read;
+            while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                output.Write(buffer, 0, read);
+            }
         }
 
         private bool PizzaExists(Guid id)

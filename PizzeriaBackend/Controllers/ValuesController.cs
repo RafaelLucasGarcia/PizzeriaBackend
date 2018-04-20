@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Dominio;
 using Infraestructura;
+using PizzeriaBackend.Models;
 
 namespace PizzeriaBackend.Controllers
 {
@@ -20,21 +21,30 @@ namespace PizzeriaBackend.Controllers
         }
 
         // GET api/values
-        public IEnumerable<string> Get()
+        public IEnumerable<Ingredient> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _logger.Ingredients();
         }
 
         // GET api/values/5
-        public Pizza Get(int id)
+        [Route("pizzas")]
+        public IEnumerable<Pizza> Get(int id)
         {
-            var pizza = new Pizza() { Id = Guid.NewGuid(), Name = "Margarita" };
-            pizza.Comments.Add(new Comments() { Id = Guid.NewGuid(), Name = "Otro.", UserName = "Pedro" });
-            pizza.Ingredients.Add(new Ingredient() { Id = Guid.NewGuid(), Name = "Queso", Cost = 2.5m });
-            pizza.Ingredients.Add(new Ingredient() { Id = Guid.NewGuid(), Name = "Tomate", Cost = 1.5m });
-            _logger.Write(pizza);
-
-            return pizza;
+            List<UploadRequestViewModel> models = new List<UploadRequestViewModel>();
+            List<Guid> IdIngredients = new List<Guid>();
+            Decimal TotalCost;
+            var pizzas = _logger.Pizzas();
+            foreach (var pizza in pizzas)
+            {
+                TotalCost = 0m;
+                foreach (var ingredient in pizza.Ingredients)
+                {
+                    IdIngredients.Add(ingredient.Id);
+                    TotalCost += ingredient.Cost;
+                }
+                //models.Add(new UploadRequestViewModel() { Name = pizza.Name, Ingredients = IdIngredients, File = new MemoryStream(pizza.File) });
+            }
+            return _logger.Pizzas();
         }
 
         // POST api/values

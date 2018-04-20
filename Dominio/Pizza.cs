@@ -14,6 +14,7 @@ namespace Dominio
         }
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public Byte[] Image { get; set; }
         public virtual ICollection<Ingredient> Ingredients { get; set; }
         public virtual ICollection<Comments> Comments { get; set; }
     }

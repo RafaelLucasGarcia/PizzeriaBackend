@@ -8,5 +8,8 @@ namespace Dominio
     public interface IRepository
     {
         void Write(Pizza pizza);
+        Ingredient Find(Guid IdIngrediente);
+        List<Ingredient> GetIngredients();
+        List<Pizza> GetPizzas();
     }
 }

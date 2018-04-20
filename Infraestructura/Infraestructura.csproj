@@ -50,7 +50,13 @@
   <ItemGroup>
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Migrations\201804201056100_initial.cs" />
+    <Compile Include="Migrations\201804201056100_initial.Designer.cs">
+      <DependentUpon>201804201056100_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PizzaContext.cs" />
+    <Compile Include="PizzaShopContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
   </ItemGroup>
@@ -67,6 +73,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804201056100_initial.resx">
+      <DependentUpon>201804201056100_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

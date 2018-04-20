@@ -7,6 +7,8 @@ namespace Dominio
 {
     public interface ILogger : IDisposable
     {
-        void Write(Pizza pizza);
+        void Write(CreatePizza createPizza);
+        List<Ingredient> Ingredients();
+        List<Pizza> Pizzas();
     }
 }

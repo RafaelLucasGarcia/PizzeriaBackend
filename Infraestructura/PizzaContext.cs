@@ -14,6 +14,22 @@ namespace Infraestructura
 
         }
 
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (NotSupportedException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public IDbSet<Pizza> Pizza { get; set; }
         public IDbSet<Ingredient> Ingredient { get; set; }
 
