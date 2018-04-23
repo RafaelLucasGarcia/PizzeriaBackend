@@ -9,7 +9,7 @@ namespace Infraestructura
 {
     public class PizzaContext : DbContext, IUnitOfWork, IRepositoryPizza
     {
-        public PizzaContext() : base("PizzasEntities")
+        public PizzaContext() : base("PizzasEntities2")
         {
 
         }

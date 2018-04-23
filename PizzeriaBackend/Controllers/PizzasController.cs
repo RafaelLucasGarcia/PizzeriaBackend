@@ -52,7 +52,7 @@ namespace PizzeriaBackend.Controllers
                     IdIngredients.Add(ingredient.Id);
                     TotalCost += ingredient.Cost;
                 }
-                //models.Add(new UploadRequestViewModel() { Name = pizza.Name, Ingredients = IdIngredients, File = new MemoryStream(pizza.File) });
+                //models.Add(new UploadRequestViewModel() { Name = pizza.Name, Ingredients = IdIngredients, Image = new MemoryStream(pizza.Image) });
             }
             return _logger.Pizzas();
         }

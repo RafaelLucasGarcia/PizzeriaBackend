@@ -250,21 +250,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PizzasController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Dominio\Comments.cs" />
-    <Compile Include="Dominio\ILogger.cs" />
-    <Compile Include="Dominio\Ingredient.cs" />
-    <Compile Include="Dominio\IRepository.cs" />
-    <Compile Include="Dominio\IRepositoryPizza.cs" />
-    <Compile Include="Dominio\Pizza.cs" />
     <Compile Include="Formatters\FormMultipartEncodedMediaTypeFormatter.cs" />
     <Compile Include="Formatters\HttpPostedFileMultipart.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infraestructura\IUnitOfWork.cs" />
-    <Compile Include="Infraestructura\Logger.cs" />
-    <Compile Include="Infraestructura\PizzaContext.cs" />
-    <Compile Include="Infraestructura\Repository.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -278,14 +268,6 @@
     <Content Include="App_Data\aspnet-PizzeriaBackend-20180416055333.mdf" />
     <Content Include="App_Data\aspnet-PizzeriaBackend-20180416055333_log.ldf">
       <DependentUpon>aspnet-PizzeriaBackend-20180416055333.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\PizzasEntities.mdf" />
-    <Content Include="App_Data\PizzasEntities_log.ldf">
-      <DependentUpon>PizzasEntities.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\PizzeriaBackend.Video.PizzaShowContext.mdf" />
-    <Content Include="App_Data\PizzeriaBackend.Video.PizzaShowContext_log.ldf">
-      <DependentUpon>PizzeriaBackend.Video.PizzaShowContext.mdf</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-grid.css" />

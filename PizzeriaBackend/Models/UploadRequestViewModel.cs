@@ -16,7 +16,7 @@ namespace PizzeriaBackend.Models
         public List<Guid> Ingredients { get; set; }
 
         [Required]
-        public HttpPostedFileBase File { get; set; }
+        public HttpPostedFileBase Image { get; set; }
     
     }
 }
